@@ -6,11 +6,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 @Tag(name = "User", description = "User API")
 public class UserController {
 
@@ -30,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public UserDto getOneByUsername(@PathVariable String username) {
+    public UserDto getByUsername(@PathVariable String username) {
         return this.userDtoMapper.userToUserDto((User) this.userService.loadUserByUsername(username));
     }
 }
