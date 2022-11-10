@@ -12,6 +12,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  flyway:
+    locations: classpath:db/migration, classpath:db/testdata
 server:
   port: 8080
   servlet:
