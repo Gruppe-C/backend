@@ -5,6 +5,7 @@ import de.backend.features.user.dto.UserDtoMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,5 +27,10 @@ public class UserController {
     @GetMapping
     public List<UserDto> getList() {
         return this.userDtoMapper.usersToUserDtos(this.userService.getList());
+    }
+
+    @GetMapping("/{username}")
+    public UserDto getOneByUsername(@PathVariable String username) {
+        return this.userDtoMapper.userToUserDto((User) this.userService.loadUserByUsername(username));
     }
 }
