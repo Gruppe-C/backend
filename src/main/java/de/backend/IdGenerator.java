@@ -1,6 +1,6 @@
 package de.backend;
 
-import com.aventrix.jnanoid.jnanoid.NanoIdUtils;
+import de.backend.security.NanoidGenerator;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
@@ -19,7 +19,6 @@ public class IdGenerator implements IdentifierGenerator {
      */
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-        char[] alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        return NanoIdUtils.randomNanoId(NanoIdUtils.DEFAULT_NUMBER_GENERATOR, alphabet, 10);
+        return NanoidGenerator.getRandomNanoId();
     }
 }
