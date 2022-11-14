@@ -27,6 +27,6 @@ springdoc:
     operations-sorter: method # Sort operations by method
     tags-sorter: alpha # Sort tags by name
     path: /docs # Path to access the API documentation
-    title: Wooo API # Title of the API documentation
-    description: Wooo API documentation # Description of the API documentation
-    contact-name: Wooo # Name of the contact
+    title: Backend API # Title of the API documentation
+    description: Backend API documentation # Description of the API documentation
+    contact-name: Backend # Name of the contact
