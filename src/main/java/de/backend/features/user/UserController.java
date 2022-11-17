@@ -33,6 +33,6 @@ public class UserController {
 
     @GetMapping("/{username}")
     public UserDto getByUsername(@PathVariable String username) {
-        return this.userDtoMapper.userToUserDto((User) this.userService.loadUserByUsername(username));
+        return this.userDtoMapper.userToUserDto(this.userService.getByUsername(username));
     }
 }

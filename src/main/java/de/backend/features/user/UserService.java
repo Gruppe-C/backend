@@ -23,13 +23,18 @@ public class UserService implements UserDetailsService {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found with id " + id));
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User getByUsername(String username) throws UsernameNotFoundException {
         return this.repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username " + username));
     }
 
     public List<User> getList() {
         return repository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username " + username));
     }
 }
