@@ -1,5 +1,6 @@
 package de.backend.features.user;
 
+import de.backend.media.entity.Media;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,6 +27,9 @@ public class User implements UserDetails {
     private String username;
 
     private String displayName;
+
+    @ManyToOne
+    private Media image;
 
     private String password;
 
