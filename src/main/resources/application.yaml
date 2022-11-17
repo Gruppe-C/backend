@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:backend;MODE=MYSQL;DATABASE_TO_LOWER=TRUE
+    driverClassName: org.h2.Driver
+    username: admin
+    password:
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+  flyway:
+    locations: classpath:db/migration, classpath:db/testdata
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+app:
+  jwtSecret: 100%SECRET!
+  jwtExpirationMs: 86400000
+
+springdoc:
+  swagger-ui:
+    operations-sorter: method # Sort operations by method
+    tags-sorter: alpha # Sort tags by name
+    path: /docs # Path to access the API documentation
+    title: Backend API # Title of the API documentation
+    description: Backend API documentation # Description of the API documentation
+    contact-name: Backend # Name of the contact
