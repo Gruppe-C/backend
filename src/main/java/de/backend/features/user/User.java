@@ -25,6 +25,8 @@ public class User implements UserDetails {
 
     private String username;
 
+    private String displayName;
+
     private String password;
 
     @CreationTimestamp
@@ -35,6 +37,12 @@ public class User implements UserDetails {
 
     public User(String username, String password) {
         this.username = username;
+        this.password = password;
+    }
+
+    public User(String username, String displayName, String password) {
+        this.username = username;
+        this.displayName = displayName;
         this.password = password;
     }
 

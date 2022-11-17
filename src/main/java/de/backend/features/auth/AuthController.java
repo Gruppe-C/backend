@@ -67,6 +67,8 @@ public class AuthController {
         var user = new User(signUpRequest.getUsername(),
                 encoder.encode(signUpRequest.getPassword()));
 
+        user.setDisplayName(signUpRequest.getUsername());
+
         User result = userRepository.save(user);
 
         String jwt = jwtUtils.generateToken(result);
