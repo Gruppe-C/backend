@@ -37,4 +37,8 @@ public class UserService implements UserDetailsService {
         return this.repository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username " + username));
     }
+
+    public User update(User user) {
+        return this.repository.saveAndFlush(user);
+    }
 }
