@@ -12,6 +12,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class GroupController {
     }
 
     @PostMapping
-    public GroupDto create(Principal principal, @RequestBody CreateGroupDto groupDto) {
+    public GroupDto create(Principal principal, @RequestBody CreateGroupDto groupDto) throws IllegalAccessException {
         User user = this.userService.getByUsername(principal.getName());
         Group group = this.mapper.createGroupDtoToGroup(groupDto);
         group.setOwner(user);
@@ -60,7 +61,7 @@ public class GroupController {
     }
 
     @PutMapping("/{groupId}")
-    public GroupDto update(Principal principal, @PathVariable String groupId, @RequestBody CreateGroupDto groupDto) {
+    public GroupDto update(Principal principal, @PathVariable String groupId, @RequestBody @Valid CreateGroupDto groupDto) {
         User user = this.userService.getByUsername(principal.getName());
         Group group = this.groupService.get(groupId);
         if (group.getOwner().equals(user)) {

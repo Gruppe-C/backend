@@ -16,7 +16,10 @@ public class GroupService {
         this.repository = repository;
     }
 
-    public Group create(Group group) {
+    public Group create(Group group) throws IllegalAccessException {
+        if (group.getName() == null) {
+            throw new IllegalAccessException("Name must be set!");
+        }
         return repository.save(group);
     }
 
