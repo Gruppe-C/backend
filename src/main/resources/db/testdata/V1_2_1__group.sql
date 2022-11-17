@@ -6,5 +6,6 @@ VALUES ('bgthn670m5', 'Test Gruppe 1', '#000', '1vfgn67jlo'),
        ('nm09kluztv', 'Test Gruppe 5', '#00000', '4vfgn67jlo');
 
 INSERT INTO `group_members` (group_id, member_id)
-VALUES ('bgthn670m5', '5vfgn67jlo');
+VALUES ('bgthn670m5', '5vfgn67jlo'),
+       ('bgthn670m5', '4vfgn67jlo');
 
