@@ -24,7 +24,7 @@ public class NanoidGenerator {
      * @param x
      * @return
      */
-    private static long rotl(long a, int x) {
+    protected static long rotl(long a, int x) {
         return (a << x) | (a >>> ((1 << 6) - x));
     }
 
@@ -34,7 +34,7 @@ public class NanoidGenerator {
      * Periodenlänge: (2^128)-1
      * @return U64 RND
      */
-    private static long xoroshiro128Plus() {
+    protected static long xoroshiro128Plus() {
         final long r = s0 + s1;
         s1 ^= s0;
         s0 = rotl(s0, 0x37) ^ s1 ^ (s1 << 0x0E);
@@ -49,7 +49,7 @@ public class NanoidGenerator {
      * @param max Maximum
      * @return Geklemmter Wert.
      */
-    private static int clamp(int x, int min, int max) {
+    protected static int clamp(int x, int min, int max) {
         return Math.max(min, Math.min(max, x));
     }
     
@@ -61,7 +61,7 @@ public class NanoidGenerator {
      * @param vector Ein Vektor mit distributiven Elementen.
      * @return Eine Nanoid der Länge 'len'.
      */
-    private static String next(final Random r, int len, final char... vector) {
+    protected static String next(final Random r, int len, final char... vector) {
         assert r != null && len > 0 && vector.length != 0 : "Invalid arguments";
         len = clamp(len, 1, (1 << (1 << 3)) + 1);
         final int mask = ((1 << 1) << (int)Math.floor(Math.log((double)vector.length - 1) / Math.log(1 << 1))) - 1;
