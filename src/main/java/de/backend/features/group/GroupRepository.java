@@ -8,6 +8,4 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, String> {
     List<Group> findDistinctByOwnerIdOrMembersIdContains(String ownerId, String memberId);
-
-
 }
