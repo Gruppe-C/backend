@@ -17,7 +17,7 @@ public class GroupService {
     }
 
     public Group create(Group group) throws IllegalAccessException {
-        if (group.getName() == null) {
+        if (group.getName() == null || group.getName().isBlank() || group.getName().isEmpty()) {
             throw new IllegalAccessException("Name must be set!");
         }
         return repository.save(group);
@@ -31,7 +31,10 @@ public class GroupService {
         return repository.findDistinctByOwnerIdOrMembersIdContains(userId, userId);
     }
 
-    public Group update(Group group) {
+    public Group update(Group group) throws IllegalAccessException {
+        if (group.getName() == null || group.getName().isBlank() || group.getName().isEmpty()) {
+            throw new IllegalAccessException("Name must be set!");
+        }
         return repository.save(group);
     }
 
