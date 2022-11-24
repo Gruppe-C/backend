@@ -61,7 +61,7 @@ public class GroupController {
     }
 
     @PutMapping("/{groupId}")
-    public GroupDto update(Principal principal, @PathVariable String groupId, @RequestBody @Valid CreateGroupDto groupDto) {
+    public GroupDto update(Principal principal, @PathVariable String groupId, @RequestBody @Valid CreateGroupDto groupDto) throws IllegalAccessException {
         User user = this.userService.getByUsername(principal.getName());
         Group group = this.groupService.get(groupId);
         if (group.getOwner().equals(user)) {
