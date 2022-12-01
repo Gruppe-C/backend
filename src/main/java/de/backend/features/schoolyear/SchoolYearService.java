@@ -15,6 +15,9 @@ public class SchoolYearService {
     }
 
     public SchoolYear create(SchoolYear schoolYear) {
+        if (schoolYear.getStartYear() >= schoolYear.getEndYear()) {
+            throw new IllegalArgumentException("Start year must be before end year");
+        }
         return this.repository.save(schoolYear);
     }
 
@@ -27,6 +30,9 @@ public class SchoolYearService {
     }
 
     public SchoolYear update(SchoolYear schoolYear) {
+        if (schoolYear.getStartYear() >= schoolYear.getEndYear()) {
+            throw new IllegalArgumentException("Start year must be before end year");
+        }
         return this.repository.save(schoolYear);
     }
 

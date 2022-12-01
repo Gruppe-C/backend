@@ -8,7 +8,6 @@ import de.backend.features.user.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,14 +41,10 @@ public class GroupController {
     }
 
     @GetMapping("/{groupId}")
-    public GroupDto getById(Principal principal, @PathVariable String groupId) {
-        User user = this.userService.getByUsername(principal.getName());
+    @PreAuthorize("@groupAccess.canAccess(#groupId)")
+    public GroupDto getById(@PathVariable String groupId) {
         Group group = this.groupService.get(groupId);
-        if (group.getMembers().contains(user) || group.getOwner().equals(user)) {
-            return this.mapper.groupToGroupDto(group);
-        } else {
-            throw new AccessDeniedException("Access Denied");
-        }
+        return this.mapper.groupToGroupDto(group);
     }
 
     @PostMapping
@@ -61,15 +56,9 @@ public class GroupController {
     }
 
     @PutMapping("/{groupId}")
-    public GroupDto update(Principal principal, @PathVariable String groupId, @RequestBody @Valid CreateGroupDto groupDto) throws IllegalAccessException {
-        User user = this.userService.getByUsername(principal.getName());
-        Group group = this.groupService.get(groupId);
-        if (group.getOwner().equals(user)) {
-            group.setName(groupDto.name());
-            group.setColor(groupDto.color());
-            return this.mapper.groupToGroupDto(this.groupService.update(group));
-        } else {
-            throw new AccessDeniedException("Access Denied");
-        }
+    @PreAuthorize("@groupAccess.canUpdate(#groupId)")
+    public GroupDto update(@PathVariable String groupId, @RequestBody @Valid CreateGroupDto groupDto) throws IllegalAccessException {
+        Group group = this.mapper.updateGroupFromCreateGroupDto(groupDto, this.groupService.get(groupId));
+        return this.mapper.groupToGroupDto(this.groupService.update(group));
     }
 }

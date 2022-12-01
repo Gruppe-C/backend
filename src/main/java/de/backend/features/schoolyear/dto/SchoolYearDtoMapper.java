@@ -14,4 +14,11 @@ public interface SchoolYearDtoMapper {
     @Mapping(source = "groupId", target = "group.id")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     SchoolYear updateSchoolYearFromSchoolYearDto(SchoolYearDto schoolYearDto, @MappingTarget SchoolYear schoolYear);
+
+    SchoolYear createSchoolYearDtoToSchoolYear(CreateSchoolYearDto createSchoolYearDto);
+
+    CreateSchoolYearDto schoolYearToCreateSchoolYearDto(SchoolYear schoolYear);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    SchoolYear updateSchoolYearFromCreateSchoolYearDto(CreateSchoolYearDto createSchoolYearDto, @MappingTarget SchoolYear schoolYear);
 }
