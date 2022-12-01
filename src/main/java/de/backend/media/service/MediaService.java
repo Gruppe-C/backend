@@ -33,14 +33,14 @@ public class MediaService {
     }
 
     public StoreMedia upload(MultipartFile file) throws IOException {
-        StoreMedia media = new StoreMedia(file.getOriginalFilename(), file.getContentType(), this.compressImage(file.getBytes()));
+        StoreMedia media = new StoreMedia(file.getOriginalFilename(), file.getContentType(), this.compressImage(file.getBytes()), file.getSize());
         return this.repository.save(media);
     }
 
     public FileMedia upload(MultipartFile file, String dir) throws IOException {
         String path = "store/" + dir + file.getOriginalFilename();
 
-        FileMedia media = new FileMedia(file.getOriginalFilename(), file.getContentType(), path);
+        FileMedia media = new FileMedia(file.getOriginalFilename(), file.getContentType(), path, file.getSize());
         Path uploadPath = Paths.get("store", dir);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);

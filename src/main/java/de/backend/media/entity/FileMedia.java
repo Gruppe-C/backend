@@ -15,8 +15,8 @@ public class FileMedia extends Media {
     public FileMedia() {
     }
 
-    public FileMedia(String name, String type, String path) {
-        super(name, type);
+    public FileMedia(String name, String type, String path, Long size) {
+        super(name, type, size);
         this.path = path;
     }
 }

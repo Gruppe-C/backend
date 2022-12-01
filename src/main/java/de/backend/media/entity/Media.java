@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @javax.persistence.Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Media {
 
     @Id
@@ -29,11 +29,14 @@ public class Media {
 
     private String type;
 
+    private Long size;
+
     public Media() {
     }
 
-    public Media(String name, String type) {
+    public Media(String name, String type, Long size) {
         this.name = name;
         this.type = type;
+        this.size = size;
     }
 }
