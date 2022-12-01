@@ -1,5 +1,6 @@
 package de.backend.features.user;
 
+import de.backend.features.auth.CurrentUserService;
 import de.backend.features.user.dto.UpdateUserDto;
 import de.backend.features.user.dto.UserDto;
 import de.backend.features.user.dto.UserDtoMapper;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +23,14 @@ public class UserController {
 
     private final UserService userService;
 
+    private final CurrentUserService currentUserService;
+
     private final UserDtoMapper userDtoMapper;
 
     @Autowired
-    public UserController(UserService userService, UserDtoMapper userDtoMapper) {
+    public UserController(UserService userService, CurrentUserService currentUserService, UserDtoMapper userDtoMapper) {
         this.userService = userService;
+        this.currentUserService = currentUserService;
         this.userDtoMapper = userDtoMapper;
     }
 
@@ -42,8 +45,9 @@ public class UserController {
     }
 
     @PutMapping
-    public UserDto update(@RequestBody UpdateUserDto userDto, Principal principal) {
-        User user = this.userService.getByUsername(principal.getName());
+    @PreAuthorize("isAuthenticated()")
+    public UserDto update(@RequestBody UpdateUserDto userDto) {
+        User user = this.currentUserService.getCurrentUser();
         if (userDto.displayName() != null) {
             user.setDisplayName(userDto.displayName());
             User result = this.userService.update(user);
@@ -56,8 +60,8 @@ public class UserController {
     @PostMapping("/image")
     @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<UserDto> uploadImage(@RequestParam("file") MultipartFile file, Principal principal) throws IOException {
-        User user = userService.getByUsername(principal.getName());
+    public ResponseEntity<UserDto> uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+        User user = this.currentUserService.getCurrentUser();
         if (Objects.requireNonNull(Objects.requireNonNull(file.getContentType())).startsWith("image/")) {
             User result = userService.uploadImage(file, user);
             return ResponseEntity.ok(this.userDtoMapper.userToUserDto(result));
