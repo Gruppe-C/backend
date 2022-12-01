@@ -17,8 +17,8 @@ public class StoreMedia extends Media {
     public StoreMedia() {
     }
 
-    public StoreMedia(String name, String type, byte[] data) {
-        super(name, type);
+    public StoreMedia(String name, String type, byte[] data, Long size) {
+        super(name, type, size);
         this.data = data;
     }
 }

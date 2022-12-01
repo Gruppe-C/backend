@@ -20,6 +20,9 @@ public class MediaDto implements Serializable {
     @Schema(description = "The type of the media", example = "image/png")
     private String type;
 
+    @Schema(description = "The size of the media", example = "123456")
+    private Long size;
+
     @Schema(description = "The url of the media", example = "http://localhost:8080/api/media/vbg23ydg56/file")
     private String url;
 }
