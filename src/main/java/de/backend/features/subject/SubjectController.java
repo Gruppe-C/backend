@@ -1,12 +1,10 @@
 package de.backend.features.subject;
 
-import de.backend.features.group.GroupService;
 import de.backend.features.schoolyear.SchoolYear;
 import de.backend.features.schoolyear.SchoolYearService;
 import de.backend.features.subject.dto.CreateSubjectDto;
 import de.backend.features.subject.dto.SubjectDto;
 import de.backend.features.subject.dto.SubjectDtoMapper;
-import de.backend.features.user.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +27,11 @@ public class SubjectController {
 
     private final SchoolYearService schoolYearService;
 
-    private final UserService userService;
-
-    private final GroupService groupService;
-
     @Autowired
-    public SubjectController(final SubjectService subjectService, final SubjectDtoMapper mapper, final SchoolYearService schoolYearService, final UserService userService, GroupService groupService) {
+    public SubjectController(final SubjectService subjectService, final SubjectDtoMapper mapper, final SchoolYearService schoolYearService) {
         this.subjectService = subjectService;
         this.mapper = mapper;
         this.schoolYearService = schoolYearService;
-        this.userService = userService;
-        this.groupService = groupService;
     }
 
     @GetMapping
