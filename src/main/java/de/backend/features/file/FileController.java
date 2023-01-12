@@ -53,10 +53,10 @@ public class FileController {
 
     @PostMapping
     @PreAuthorize("@groupAccess.canAccess(#groupId)")
-    public FileDto uploadFile(@PathVariable String groupId, @PathVariable String subjectId, @RequestPart("name") String name, @RequestPart("file") MultipartFile multipartFile) throws IllegalAccessException {
+    public FileDto uploadFile(@PathVariable String groupId, @PathVariable String subjectId, @RequestParam("file") MultipartFile multipartFile) throws IllegalAccessException {
         User user = this.userService.getCurrentUser();
         Subject subject = this.subjectService.get(subjectId);
-        File file = new File(name, user, subject);
+        File file = new File(multipartFile.getOriginalFilename(), user, subject);
         File result = fileService.uploadFile(file, multipartFile);
         return fileDtoMapper.fileToFileDto(result);
     }

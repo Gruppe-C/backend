@@ -15,9 +15,12 @@ public abstract class FileDtoMapper {
             fileDto.media().setUrl(MvcUriComponentsBuilder
                     .fromMethodName(MediaController.class, "getFile", fileDto.media().getId()).build().toString());
         }
+        if (fileDto.owner().image() != null) {
+            fileDto.owner().image().setUrl(MvcUriComponentsBuilder
+                    .fromMethodName(MediaController.class, "getFile", fileDto.owner().image().getId()).build().toString());
+        }
     }
 
-    @Mapping(source = "ownerId", target = "owner.id")
     @Mapping(source = "subjectId", target = "subject.id")
     public  abstract File fileDtoToFile(FileDto fileDto);
 
